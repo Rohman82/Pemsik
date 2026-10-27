@@ -7,7 +7,11 @@ const MahasiswaDetail = () => {
   const path = window.location.pathname;
   const nim = path.split("/").pop();
 
-  const mahasiswa = mahasiswaList.find((m) => m.nim === nim);
+  // Baca dari localStorage dulu, kalau kosong baru pakai data dummy
+  const saved = localStorage.getItem("mahasiswa");
+  const list = saved ? JSON.parse(saved) : mahasiswaList;
+
+  const mahasiswa = list.find((m) => m.nim === nim);
 
   if (!mahasiswa) {
     return <p className="text-red-600">Data mahasiswa tidak ditemukan.</p>;
